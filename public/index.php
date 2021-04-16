@@ -1,18 +1,18 @@
 <?php
 
 require_once(dirname(__FILE__, 2) . '/src/config/config.php');
-require_once(dirname(__FILE__, 2) . '/src/models/User.php');
+//require_once(VIEW_PATH . '/login.php');
 
-$user = new User(['name' => 'Lucas', 'email' => 'lucas@cod3r.com.br']);
-//echo $user->getSelect('id, name');
+require_once(MODEL_PATH . '/Login.php');
 
-print_r(User::get(['id' => 1], 'name, email'));
-echo '<br>';
+$login = new Login([
+    'email' => 'admin@cod3r.com.br',
+    'password' => 'a'
+]);
 
-print_r(User::get());
-echo '<br>';
-
-foreach(User::get([], 'name') as $user){
-    echo $user->name;
-    echo '<br>';
+try {
+    $login->checkLogin();
+    echo 'Deu certo :)';
+} catch(Exception $e) {
+    echo 'Problema no login :P';
 }
